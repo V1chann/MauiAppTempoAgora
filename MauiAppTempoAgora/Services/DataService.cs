@@ -17,8 +17,8 @@ namespace MauiAppTempoAgora.Services
             {
                 HttpResponseMessage resp = await client.GetAsync(url);
 
-                if (resp.IsSuccessStatusCode) 
-                { 
+                if (resp.IsSuccessStatusCode)
+                {
                     string json = await resp.Content.ReadAsStringAsync();
 
                     var rascunho = JObject.Parse(json);
@@ -40,8 +40,20 @@ namespace MauiAppTempoAgora.Services
                         sunrise = sunrise.ToString(),
                         sunset = sunset.ToString(),
 
-                    }; // fecha obj tempo.
-                }// fecha if se o status do servidor foi de sucesso
+                    };// fecha obj tempo.
+                }
+                else if (resp.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new Exception("Cidade não encontrada. Tente novamente.");
+
+                }
+                else if (resp.StatusCode == System.Net.HttpStatusCode.RequestTimeout ||
+                          resp.StatusCode == System.Net.HttpStatusCode.BadGateway ||
+                          resp.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                {
+                    throw new Exception("Erro de conexão. Verifique sua rede e tente novamente.");
+                }
+                    
             }// fecha laço using
 
             return t;

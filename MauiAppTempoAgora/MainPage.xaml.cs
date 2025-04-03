@@ -30,7 +30,11 @@ namespace MauiAppTempoAgora
                                          $"Nascer do Sol: {t.sunrise} \n" +
                                          $"Por do Sol: {t.sunset} \n" +
                                          $"Temp Máx: {t.temp_max} \n" +
-                                         $"Temp Min: {t.temp_min} \n";
+                                         $"Temp Min: {t.temp_min} \n" +
+                                         $"Descrição:{t.description} \n" +
+                                         $"Velocidade: {t.speed}\n" +
+                                         $"Visibilidade: {t.visibility} \n";
+                                         
                         
                         lbl_res.Text = dados_previsão;
                     }
